@@ -18,6 +18,8 @@ raw_unfaelle <- read_csv2("unfaelle.csv", locale=locale(encoding="latin1"))
 # Create sf object from X/Y coord columns. Lon/Lat is EPSG:4326
 unfaelle <- st_as_sf(raw_unfaelle, coords=c("XGCSWGS84","YGCSWGS84"), crs=4326)
 
+bike_accidents <- filter(unfaelle, IstRad==1)
+
 # Berlin neighborhoods
 bezirke <- st_read("shp-bezirke/bezirke_berlin.shp")
 
@@ -30,14 +32,14 @@ Interactive Gallery
 Column {data-height=200}
 -----------------------------------------------------------------------
 
-### Number of Accidents
+### Total Accidents
 ```{r}
-valueBox(nrow(unfaelle), icon = "fa-bicycle" )
+valueBox(nrow(unfaelle), icon = "fa-car" )
 ```
 
 ### Number of Bicycle Accidents
 ```{r}
-valueBox(5000, icon = "fa-bicycle", color="warning"  )
+valueBox(nrow(bike_accidents), icon = "fa-bicycle", color="warning"  )
 ```
 
 Column {data-height=500}
