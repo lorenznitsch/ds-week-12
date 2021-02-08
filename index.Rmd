@@ -27,7 +27,7 @@ Interactive Gallery
 ===========
 
 
-Column {data-width=500}
+Column {data-height=200}
 -----------------------------------------------------------------------
 
 ### Number of Accidents
@@ -37,13 +37,15 @@ valueBox(nrow(unfaelle), icon = "fa-bicycle" )
 
 ### Number of Bicycle Accidents
 ```{r}
-valueBox(5000, icon = "fa-bicycle" )
+valueBox(5000, icon = "fa-bicycle", color="warning"  )
 ```
 
-Column {data-width=500}
+Column {data-height=500}
 -----------------------------------------------------------------------
 
 ### Accident Locations
+
+This is some **introductory** text.
 
 ```{r}
 
@@ -81,7 +83,7 @@ tm_shape(bezirke) +
 ```
 
 
-Column {data-width=300}
+Column {data-height=300}
 -----------------------------------------------------------------------
 
 ### Neigbhorhood summary data
