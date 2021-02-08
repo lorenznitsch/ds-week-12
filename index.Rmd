@@ -42,6 +42,11 @@ valueBox(nrow(unfaelle), icon = "fa-car" )
 valueBox(nrow(bike_accidents), icon = "fa-bicycle", color="warning"  )
 ```
 
+### Third important number!
+```{r}
+valueBox(681, icon = "fa-rocket", color="danger"  )
+```
+
 Column {data-height=500}
 -----------------------------------------------------------------------
 
