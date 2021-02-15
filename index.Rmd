@@ -1,106 +1,36 @@
 ---
-title: "Accident data in Berlin, 2019"
+title: "Untitled"
 output: 
   flexdashboard::flex_dashboard:
-    orientation: rows
+    orientation: columns
     vertical_layout: fill
 ---
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
-library(sf)
-library(tidyverse)
-library(tmap)
-
-# 2019 accident data
-raw_unfaelle <- read_csv2("unfaelle.csv", locale=locale(encoding="latin1"))
-
-# Create sf object from X/Y coord columns. Lon/Lat is EPSG:4326
-unfaelle <- st_as_sf(raw_unfaelle, coords=c("XGCSWGS84","YGCSWGS84"), crs=4326)
-
-bike_accidents <- filter(unfaelle, IstRad==1)
-
-# Berlin neighborhoods
-bezirke <- st_read("shp-bezirke/bezirke_berlin.shp")
-
 ```
 
-Interactive Gallery
-===========
-
-
-Column {data-height=200}
+Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Total Accidents
+### Chart A
+
 ```{r}
-valueBox(nrow(unfaelle), icon = "fa-car" )
+
 ```
 
-### Number of Bicycle Accidents
-```{r}
-valueBox(nrow(bike_accidents), icon = "fa-bicycle", color="warning"  )
-```
-
-### Third important number!
-```{r}
-valueBox(681, icon = "fa-rocket", color="danger"  )
-```
-
-Column {data-height=500}
+Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Accident Locations
-
-This is some **introductory** text.
+### Chart B
 
 ```{r}
 
-# 1. Plot the dots themselves
-tmap_mode("view") # tmap_mode("plot")
-#tm_basemap("OpenStreetMap.DE") +
-
-unfaelle <- mutate(unfaelle, bike_related=IstRad==1)
-
-tm_shape(bezirke) +
-  tm_polygons() +
-  tm_shape(unfaelle) +
-  tm_dots(size=0.01, col="bike_related", title="2019 Accidents: Bike-related?")
 ```
 
-> Source data from: <https://www.statistik-berlin-brandenburg.de/>
-
-### Collisions by neighborhood
+### Chart C
 
 ```{r}
-unfaelle <- st_transform(unfaelle, crs=25833)
-bezirke <- st_transform(bezirke, crs=25833)
-
-joined_data <- st_join(bezirke, unfaelle["IstRad"])
-
-accident_summary <- joined_data %>%
-  group_by(SCHLUESSEL) %>%
-  summarize(num_accidents=n())
-
-tm_shape(bezirke) +
-  tm_polygons() +
-  tm_shape(accident_summary) +
-  tm_dots(size="num_accidents", col="num_accidents", title="Collisions by Neighborhood, 2019")
 
 ```
 
-
-Column {data-height=300}
------------------------------------------------------------------------
-
-### Neigbhorhood summary data
-
-```{r}
-knitr::kable(accident_summary)
-```
-
-
-Discussion
-==========
-
-These graphs are based on data we collected from....
